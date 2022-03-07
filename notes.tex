@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -33,7 +34,33 @@
     \item Example: Parameter estimation \begin{itemize}
         \item Given i.i.d samples from unknown distribution, how do we estimate its parameters?
         \item mean: $\frac{1}{N} \sum_{i=1}^{N} X_i \rightarrow \mu$, empirical variance: $\frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X})^2 \rightarrow \sigma^2$
-        \item 
+    \end{itemize}
+    \item Robust Estimation: One dimension \begin{itemize}
+        \item Given \textbf{corrupted} samples from a 1-D gaussian, can we accurately estimate its parameters? 
+        \item A single corrupted sample can arbitrarily corrupt empirical mean and variance
+        \item Median still works: Given $N$ $\epsilon$-corrupted samples from $\mathcal{N} (\mu, \sigma^2)$, with high constant probability $|\hat{\mu} - \mu| \leq O(\epsilon) + \sqrt{\frac{1}{N}}) \cdot \sigma$ where $\hat{\mu} = \text{median} (S)$
+    \end{itemize}
+    \item In high dimensions: \begin{itemize}
+        \item Robust mean estimation: Given $\epsilon$-corrupted set of samples from unkown mean, identity covariance Gaussian $\mathcal{N} (\mu, I)$ in $d$ dimensions, recover $\hat{mu}$ with $\Vert \hat{\mu} - \mu \Vert_2 = O(\epsilon) + O(\sqrt{\frac{d}{N}})$
+        \item above convergence rate is optimal 
+        \item All known estimators either require exponential time to compute or can tolerate a neglible fraction of outliers
+    \end{itemize}
+    \item Robust estimation in high dimensions is algorithmically possible!
+    \item Meta-Theorem: Can obtain dimension-independent error guarantees, if distribtution on inliers has a nice concentration
+    \item Robust mean estimation: Gaussian case \begin{itemize}
+        \item Problem: Given $\epsilon$-corrupted set of points $x_1, \dots, x_N \in \mathbb{R}^d$ from unkown dist. $D$ in known family $\mathcal{F}$, estimate mean $\mu$ of $D$
+        \item Theorem 1: Let $\epsilon < \frac{1}{2}$. If $D$ is a spherical gaussian, there is an efficient alg. that outputs estimate $\hat{\mu}$ that with high probability satisfies $\Vert \hat{\mu} - \mu \Vert_2 = O(\epsilon) + O(\sqrt{\frac{d}{N}})$ in the additive contamination model
+        \item Note: First term of RHS is independent of $d$
+    \end{itemize}
+    \item Robust mean estimation: Sub-Gaussian case \begin{itemize}
+        \item Problem: Given $\epsilon$-corrupted set of points $x_1, \dots, x_N \in \mathbb{R}^d$ from unkown dist. $D$ in known family $\mathcal{F}$, estimate mean $\mu$ of $D$
+        \item Theorem 1: Let $\epsilon < \frac{1}{2}$. If $D$ is a spherical sub-gaussian, there is an efficient alg. that outputs estimate $\hat{\mu}$ that with high probability satisfies $\Vert \hat{\mu} - \mu \Vert_2 = O(\epsilon \sqrt{\log(\frac{1}{\epsilon})}) + O(\sqrt{\frac{d}{N}})$ in the strong contamination model
+        \item Note: Information-theoretically optimal error
+    \end{itemize}
+    \item Robust mean estimation: Bounded covariance case \begin{itemize}
+        \item Problem: Given $\epsilon$-corrupted set of points $x_1, \dots, x_N \in \mathbb{R}^d$ from unkown dist. $D$ in known family $\mathcal{F}$, estimate mean $\mu$ of $D$
+        \item Theorem 1: Let $\epsilon < \frac{1}{2}$. If $D$ has covariance $\Sigma \preceq \sigma^2 \cdot I$, there is an efficient alg. that outputs estimate $\hat{\mu}$ that with high probability satisfies $\Vert \hat{\mu} - \mu \Vert_2 = O(\sigma \sqrt{\epsilon}) + O(\sqrt{\frac{d}{N}})$ in the strong contamination model
+        \item Note: Information-theoretically optimal error
     \end{itemize}
 
 \end{itemize}
