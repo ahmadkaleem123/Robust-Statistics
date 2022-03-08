@@ -66,6 +66,26 @@
 \end{itemize}
 
 
+\section{Part 2}
+
+\begin{itemize}
+    \item Let $X_1, \dots, X_N$ be iid samples from $\mathcal{N}(\mu, I)$. The empirical estimator $\hat{\mu}$ satisfies $\Vert \hat{\mu} - \mu \Vert_2 = O(\sqrt{\frac{d}{N}})$ with prob at least 9/10. 
+    \item Information: theoretic limits on robsut estimation: Any robust mean estimator for $\mathcal{N} (\mu, 1)$ has error $\Omega(\epsilon)$
+    \item Proposition: There is an algorithm that uses $N = O(\frac{d}{\epsilon^2})$ $\epsilon$ corrupted samples from $\mathcal{N} (\mu, 1)$ and outputs $\tilde{\mu} \in \mathbb{R}^d$ which with probability $>$ 9/10 satisfies $\Vert \hat{\mu} - \mu \Vert_2 = O(\epsilon)$
+    \item Main idea: To robustly learn the mean of $\mathcal{N} (\mu, I)$, it suffices to learn the mean of all its 1-D projections
+    \item Basic fact: $\Vert x \Vert_2 = \max_{v : \Vert v \Vert_2 = 1} | v \cdot x | $. This allows us to estimate $\mu$ within a certain error $2 \delta$
+    \item Idea: If empirical covariance is "close to what it should be", the empirical mean works
+    \item Key lemma: With high probability $\Vert \hat{\Sigma} \Vert_2 \leq 1 + O(\epsilon \log(\frac{1}{\epsilon})) \implies \Vert \hat{\mu} - \mu \Vert_2 \leq O(\epsilon \sqrt{\log{\frac{1}{\epsilon}}})$ in a strong contamination model where  $\hat{\Sigma} = \frac{1}{N} \sum_{i=1}^{N} (X_i - \hat{\mu})(X_i - \hat{\mu})^{T}$ is the covariance
+    \item Idea \# 2: Removing any $\epsilon$-fraction of good points does not move empirical mean and covariance by much
+    \item Idea \# 3: Additive corruptions can move the covariance in some directions but not all directions simultaneously
+    \item Recursive dimension-halving: 1) Find large subspace where "standard" estimator works, 2) recurse on complement
+    \item Good subspace $G$ is one where empirical mean works. Sufficient condition is: projection of empirical covariance on $G$ has no large eigenvalues
+    \item Good subspace lemma: Let $X_1, X_2, \dots X_N$ be additively $\epsilon$-corrupted set of $N = \Omega(d \log \frac{d}{\epsilon^2})$ samples from $\mathcal{N} (\mu, I)$. After naive pruning, we have $\lambda_{\frac{d}{2}} (\hat{\Sigma}) \leq 1 + O(\epsilon)$
+    \item Corollary: Let $W$ be the span of the bottom $\frac{d}{2}$ eigenvalues of $\hat{\Sigma}$. Then $W$ is a good subspace Continue from page 22
+    \item 
+\end{itemize}
+
+
 
 \begin{thebibliography}{9}
 
